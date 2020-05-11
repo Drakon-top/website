@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form class="container" method="post">
+<button type="submit" class="knopka">Выйти</button>
+</form>
+<h2>Мои отзывы</h2>
+{% for item in component%}
+<div class="col-md6 border rounded">
+    <div>
+    <a class="btn btn-primary " href="tovar/{{item.name}}">{{item.name}}</a>
+        {{item.types}}<br>
+        Дата добавления - {{item.created_date}}
+    </div>
+</div>
+<style>
+    div {
+    margin: 5px;
+    padding: 5px;
+    }
+
+    button.knopka {
+    height: 30px;
+    width: 70px;
+    color: azure;
+	background: royalblue;
+	padding: 5px;
+	border-radius: 5px;
+	border: 2px solid #34495e;
+    }
+
+    button.knopka:hover {
+        background: darkblue;
+    }
+
+</style>
+{% endfor %}
+{% endblock %}

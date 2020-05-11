@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul class="menu cf">
+    <li><a href="http://127.0.0.1:8070">Главная</a>
+        <ul class="submenu">
+            {% if current_user.is_authenticated %}
+            <li><a href="http://127.0.0.1:8070/profile">Профиль</a></li>
+            {% else %}
+            <li><a href="login">Вход</a></li>
+            <li><a href="register">Регистрация</a></li>
+            {% endif %}
+        </ul>
+    </li>
+    <li><a href="http://127.0.0.1:8070/product/Процессор">Процессоры</a>
+        <ul class="submenu">
+            <li><a href="http://127.0.0.1:8070/product/Процессор/AMD">AMD</a></li>
+            <li><a href="http://127.0.0.1:8070/product/Процессор/Intel">Intel</a></li>
+        </ul>
+    </li>
+    <li><a href="http://127.0.0.1:8070/product/Материнская Плата">Мат. платы</a>
+        <ul class="submenu">
+            <li><a href="http://127.0.0.1:8070/product/Материнская Плата/ASUS">ASUS</a></li>
+            <li><a href="http://127.0.0.1:8070/product/Материнская Плата/GIGABYTE">GIGABYTE</a></li>
+            <li><a href="http://127.0.0.1:8070/product/Материнская Плата/MSI">MSI</a></li>
+            <li><a href="http://127.0.0.1:8070/product/Материнская Плата/ASRock">ASRock</a></li>
+        </ul>
+    </li>
+    <li><a href="http://127.0.0.1:8070/product/Видеокарта">Видеокарты</a>
+        <ul class="submenu">
+            <li><a href="http://127.0.0.1:8070/product/Видеокарта/ASUS">ASUS</a></li>
+            <li><a href="http://127.0.0.1:8070/product/Видеокарта/GIGABYTE">GIGABYTE</a></li>
+            <li><a href="http://127.0.0.1:8070/product/Видеокарта/MSI">MSI</a></li>
+            <li><a href="http://127.0.0.1:8070/product/Видеокарта/Inno3D">Inno3D</a></li>
+            <li><a href="http://127.0.0.1:8070/product/Видеокарта/Zotac">Zotac</a></li>
+            <li><a href="http://127.0.0.1:8070/product/Видеокарта/HIS">HIS</a></li>
+            <li><a href="http://127.0.0.1:8070/product/Видеокарта/Sapphire">Sapphire</a></li>
+            <li><a href="http://127.0.0.1:8070/product/Видеокарта/PowerColor">PowerColor</a></li>
+        </ul>
+    </li>
+    <li><a>Другое</a>
+        <ul class="submenu">
+            <li><a href="http://127.0.0.1:8070/product/Оперативная память">Опер. память</a></li>
+            <li><a href="http://127.0.0.1:8070/product/Блок питания">Блоки питания</a></li>
+            <li><a href="http://127.0.0.1:8070/product/Корпус">Корпуса</a></li>
+            <li><a href="http://127.0.0.1:8070/product/Охлаждение">Охлаждение</a></li>
+            <li><a href="http://127.0.0.1:8070/product/SSD">SSD</a></li>
+            <li><a href="http://127.0.0.1:8070/product/Жесткий диск">Жесткие диски</a></li>
+        </ul>
+    </li>
+</ul>
+<main role="main" class="container">
+    {% block content %}{% endblock %}
+</main>
+</body>
+</html>
+<style>
+    html {
+        height: 100%;
+    }
+    body {
+        background:
+                -webkit-linear-gradient(rgba(5, 610, 255, 0.4), rgba(135, 60, 255, 0.0) 80%),
+                -webkit-linear-gradient(-45deg, rgba(120, 155, 255, 0.9) 25%, rgba(255, 160, 65, 0.9) 76%);
+    }
+    .cf:before, .cf:after {
+        content:" ";
+        display: table;
+    }
+    .cf:after {
+        clear: both;
+    }
+    .cf {
+        *zoom: 1;
+    }
+    .menu {
+        list-style:none;
+        margin: 20px auto;
+        width: 800px;
+        width: -moz-fit-content;
+        width: -webkit-fit-content;
+        width: fit-content;
+    }
+    .menu > li {
+        background: #34495e;
+        float: left;
+        position: relative;
+        -webkit-transform: skewX(25deg);
+    }
+    .menu a {
+        display: block;
+        color: #fff;
+        text-transform: uppercase;
+        text-decoration: none;
+        font-family: Arial, Helvetica;
+        font-size: 14px;
+    }
+    .menu li:hover {
+        background: lightseagreen;
+    }
+    .menu > li > a {
+        -webkit-transform: skewX(-25deg);
+        padding: 1em 2em;
+    }
+    /* Dropdown */
+    .submenu {
+        position: absolute;
+        width: 200px;
+        left: 50%;
+        margin-left: -100px;
+        -webkit-transform: skewX(-25deg);
+        -webkit-transform-origin: left top;
+    }
+    .submenu li {
+        background-color: #34495e;
+        position: relative;
+        overflow: hidden;
+    }
+    .submenu > li > a {
+        padding: 1em 2em;
+    }
+    .submenu > li::after {
+        content:'';
+        position: absolute;
+        top: -125%;
+        height: 100%;
+        width: 100%;
+        box-shadow: 0 0 50px rgba(0, 0, 0, .9);
+    }
+    /* Odd stuff */
+    .submenu > li:nth-child(odd) {
+        -webkit-transform: skewX(-25deg) translateX(0);
+    }
+    .submenu > li:nth-child(odd) > a {
+        -webkit-transform: skewX(25deg);
+    }
+    .submenu > li:nth-child(odd)::after {
+        right: -50%;
+        -webkit-transform: skewX(-25deg) rotate(3deg);
+    }
+    /* Even stuff */
+    .submenu > li:nth-child(even) {
+        -webkit-transform: skewX(25deg) translateX(0);
+    }
+    .submenu > li:nth-child(even) > a {
+        -webkit-transform: skewX(-25deg);
+    }
+    .submenu > li:nth-child(even)::after {
+        left: -50%;
+        -webkit-transform: skewX(25deg) rotate(3deg);
+    }
+    /* Show dropdown */
+    .submenu, .submenu li {
+        opacity: 0;
+        visibility: hidden;
+    }
+    .submenu li {
+        transition: .2s ease -webkit-transform;
+    }
+    .menu > li:hover .submenu, .menu > li:hover .submenu li {
+        opacity: 1;
+        visibility: visible;
+    }
+    .menu > li:hover .submenu li:nth-child(even) {
+        -webkit-transform: skewX(25deg) translateX(15px);
+    }
+    .menu > li:hover .submenu li:nth-child(odd) {
+        -webkit-transform: skewX(-25deg) translateX(-15px);
+    }
+
+
+
+</style>

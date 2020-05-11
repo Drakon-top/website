@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Добавление новости</h1>
+<form class="container" method="post">
+    <div class="form-group">
+        <label for="title">Название</label>
+        <textarea class="form-control" id="title" name="title"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="about">Название</label>
+        <textarea class="form-control" id="about" name="about"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="classSelect">В каком вы классе</label>
+        <select class="form-control" id="classSelect" name="class">
+            <optgroup label="Процессоры">
+                {% for item in proz %}
+                <option>{{ item.name }}</option>
+                {% endfor %}
+            </optgroup>
+            <optgroup label="Материнские Платы">
+                {% for item in mat %}
+                <option>{{ item.name }}</option>
+                {% endfor %}
+            </optgroup>
+            <optgroup label="Видеокарты">
+                {% for item in video %}
+                <option>{{ item.name }}</option>
+                {% endfor %}
+            </optgroup>
+            <optgroup label="Оперативная Память">
+                {% for item in pam %}
+                <option>{{ item.name }}</option>
+                {% endfor %}
+            </optgroup>
+            <optgroup label="Блоки Питяния">
+                {% for item in block %}
+                <option>{{ item.name }}</option>
+                {% endfor %}
+            </optgroup>
+            <optgroup label="Корпуса">
+                {% for item in korp %}
+                <option>{{ item.name }}</option>
+                {% endfor %}
+            </optgroup>
+            <optgroup label="Охлаждение">
+                {% for item in oxl %}
+                <option>{{ item.name }}</option>
+                {% endfor %}
+            </optgroup>
+            <optgroup label="SSD">
+                {% for item in ssd %}
+                <option>{{ item.name }}</option>
+                {% endfor %}
+            </optgroup>
+            <optgroup label="Жесткие диски">
+                {% for item in disk %}
+                <option>{{ item.name }}</option>
+                {% endfor %}
+            </optgroup>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Записаться</button>
+</form>
+{% endblock %}

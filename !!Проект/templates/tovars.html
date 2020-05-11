@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Товары</h2>
+{% for item in component%}
+<div class="col-md6 border rounded">
+    <div>
+    <a class="btn btn-primary " href="tovar/{{item.name}}">{{item.name}}</a>
+        {{item.types}}<br>
+        Дата добавления - {{item.created_date}}
+    </div>
+</div>
+{% endfor %}
+<style>
+    div {
+    margin: 5px;
+    padding: 5px;}
+</style>
+{% endblock %}
