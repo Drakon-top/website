@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Записи в блоге</h2>
 {% for item in component%}
 <div class="col-md6 border rounded">
     <h2>{{item.name}}</h2>
@@ -12,7 +11,33 @@
         <h3>Характеристики:</h3>
         {{item.specifications}}
     </div>
-    <h3>Добавить отзыв</h3>
 </div>
 {% endfor %}
+<h3>Добавить отзыв</h3>
+<form class="container" method="post">
+    <div class="form-group">
+        <label for="plus">Плюсы</label>
+        <textarea class="form-control" id="plus" name="plus"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="about">Минусы</label>
+        <textarea class="form-control" id="minus" name="minus"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="about">В общем</label>
+        <textarea class="form-control" id="about" name="about"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="classSelect">Оценка</label>
+        <select class="form-control" id="classSelect" name="class">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Создать</button>
+</form>
+
 {% endblock %}

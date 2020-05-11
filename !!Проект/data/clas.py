@@ -40,7 +40,9 @@ class Reviews(SqlAlchemyBase):
     id = sqlalchemy.Column(sqlalchemy.Integer, 
                            primary_key=True, autoincrement=True)
     estimation = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    types = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    plus = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    minus = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     content = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime, 
                                      default=datetime.datetime.now)
@@ -62,10 +64,6 @@ class LoginForm(FlaskForm):
     password = PasswordField('Пароль', validators=[DataRequired()])
     remember_me = BooleanField('Запомнить меня')
     submit = SubmitField('Войти')  
-    
-    
-class Profile(FlaskForm):
-    submit = SubmitField('Выйти') 
     
     
 class ReviewsForm(FlaskForm):

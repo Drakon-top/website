@@ -9,7 +9,6 @@ from data.clas import RegisterForm
 from data.clas import LoginForm
 from data.clas import ReviewsForm
 from data.clas import Tovar
-from data.clas import Profile
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 app = Flask(__name__)
@@ -109,7 +108,7 @@ def reqister():
 
 
 
-@app.route('/profile',  methods=['GET', 'POST'])
+@app.route('/profile', methods=['GET', 'POST'])
 def profile():
     if request.method == 'GET':
         session = db_session.create_session()
@@ -142,11 +141,24 @@ def product_typ_man(types, manufacturer):
     return render_template('tovars.html', component=component)
 
 
-@app.route('/tovar/<name>')
+@app.route('/tovar/<name>', methods=['GET', 'POST'])
 def tovars(name):
-    session = db_session.create_session()
-    component = session.query(Tovar).filter(Tovar.name == name)
-    return render_template('see.html', component=component)
+    if request.method == 'GET':
+        session = db_session.create_session()
+        component = session.query(Tovar).filter(Tovar.name == name)
+        return render_template('see.html', component=component)
+    elif request.method == 'POST':
+        session = db_session.create_session()
+        component = Reviews()
+        component.name = name
+        component.plus = request.form['plus']
+        component.minus = request.form['minus']
+        component.content = request.form['about']
+        component.estimation = request.form['class']
+        component.user_id = current_user.id
+        session.add(component)
+        session.commit()
+        return redirect('/index') 
 
 
 def main():

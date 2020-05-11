@@ -8,8 +8,13 @@
 {% for item in component%}
 <div class="col-md6 border rounded">
     <div>
-    <a class="btn btn-primary " href="tovar/{{item.name}}">{{item.name}}</a>
-        {{item.types}}<br>
+    <a class="btn btn-primary " href="tovar/{{item.name}}">{{item.name}}</a><br>
+        Плюсы<br>
+        {{ item.plus }}<br>
+        Минусы<br>
+        {{ item.minus }}<br>
+        В общем<br>
+        {{ item.content }}<br>
         Дата добавления - {{item.created_date}}
     </div>
 </div>
