@@ -2,7 +2,7 @@
 
 
 from flask import Flask, render_template, request, redirect, url_for
-from data import db_session
+from data import db_session, reviews_api
 from data.clas import User
 from data.clas import Reviews
 from data.clas import RegisterForm
@@ -13,6 +13,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+Admin = False
 login_manager = LoginManager()
 login_manager.init_app(app)
 db_session.global_init("db/base.sqlite")
@@ -41,8 +42,12 @@ def logout():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    global Admin
     form = LoginForm()
     if form.validate_on_submit():
+        if form.email.data == 'admin@admin' and form.password.data == '1234321':
+            Admin = True
+            return redirect('/profile')
         session = db_session.create_session()
         user = session.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
@@ -52,7 +57,6 @@ def login():
                                message="Неправильный логин или пароль",
                                form=form)
     return render_template('login.html', title='Авторизация', form=form)
-
 
 
 @app.route('/component',  methods=['GET', 'POST'])
@@ -110,12 +114,27 @@ def reqister():
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
-    if request.method == 'GET':
-        session = db_session.create_session()
-        component = session.query(Reviews).filter(Reviews.user_id == current_user.id)    
-        return render_template('profile.html', component=component)        
-    elif request.method == 'POST':
-        return redirect('/logout')
+    global Admin
+    if Admin:
+        if request.method == 'GET':   
+            return render_template('admin.html')        
+        elif request.method == 'POST':
+            session = db_session.create_session()
+            tov = Tovar()
+            tov.name = request.form['title']
+            tov.specifications = request.form['about']
+            tov.types = request.form['class']     
+            tov.manufacturer = request.form['manuf']  
+            session.add(tov)
+            session.commit()  
+            return redirect('/profile')
+    else:
+        if request.method == 'GET':
+            session = db_session.create_session()
+            component = session.query(Reviews).filter(Reviews.user_id == current_user.id)    
+            return render_template('profile.html', component=component, Admin=Admin)        
+        elif request.method == 'POST':
+            return redirect('/logout')
 
 
 
@@ -159,9 +178,32 @@ def tovars(name):
         session.add(component)
         session.commit()
         return redirect('/index') 
+    
+    
+@app.route('/tovar/<name>/reviews', methods=['GET', 'POST'])
+def tovars_reviews(name):
+    if request.method == 'GET':
+        session = db_session.create_session()
+        component = session.query(Tovar).filter(Tovar.name == name)
+        reviews = session.query(Reviews).filter(Reviews.name == name)
+        return render_template('see2.html', component=component, reviews=reviews)
+    elif request.method == 'POST':
+        session = db_session.create_session()
+        component = Reviews()
+        component.name = name
+        component.plus = request.form['plus']
+        component.minus = request.form['minus']
+        component.content = request.form['about']
+        component.estimation = request.form['class']
+        component.user_id = current_user.id
+        session.add(component)
+        session.commit()
+        return redirect('/index')     
 
 
 def main():
+    db_session.global_init("db/blogs.sqlite")
+    app.register_blueprint(reviews_api.blueprint)    
     app.run(port=8070, host='127.0.0.1')
 
 

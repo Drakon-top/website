@@ -12,7 +12,21 @@
         {{item.specifications}}
     </div>
 </div>
-<h3><a href="http://127.0.0.1:8070/tovar/{{item.name}}/reviews">Показать отзывы</a></h3>
+<h3><a href="http://127.0.0.1:8070/tovar/{{item.name}}">Скрыть отзывы</a></h3>
+{% endfor %}
+{% for item in reviews%}
+<div class="col-md6 border rounded">
+    <div>
+    <a class="btn btn-primary " href="tovar/{{item.name}}">{{item.name}}</a><br>
+        Плюсы<br>
+        {{ item.plus }}<br>
+        Минусы<br>
+        {{ item.minus }}<br>
+        В общем<br>
+        {{ item.content }}<br>
+        Дата добавления - {{item.created_date}}
+    </div>
+</div>
 {% endfor %}
 {% if current_user.is_authenticated %}
 <h3>Добавить отзыв</h3>

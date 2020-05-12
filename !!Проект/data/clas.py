@@ -7,6 +7,7 @@ from flask import request
 from .db_session import SqlAlchemyBase
 from sqlalchemy import orm
 from flask_wtf import FlaskForm
+from sqlalchemy_serializer import SerializerMixin
 from wtforms import StringField, SubmitField, TextAreaField, PasswordField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Email
 from wtforms.fields.html5 import EmailField
@@ -32,9 +33,9 @@ class User(SqlAlchemyBase, UserMixin):
     
     def check_password(self, password):
         return check_password_hash(self.hashed_password, password)    
+        
     
-    
-class Reviews(SqlAlchemyBase):
+class Reviews(SqlAlchemyBase, SerializerMixin):
     __tablename__ = 'reviews'
 
     id = sqlalchemy.Column(sqlalchemy.Integer, 
@@ -63,7 +64,7 @@ class LoginForm(FlaskForm):
     email = EmailField('Почта', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired()])
     remember_me = BooleanField('Запомнить меня')
-    submit = SubmitField('Войти')  
+    submit = SubmitField('Войти')     
     
     
 class ReviewsForm(FlaskForm):

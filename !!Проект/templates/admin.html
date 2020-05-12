@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form class="container" method="post">
+    <h3><a href="http://127.0.0.1:8070/">Выйти</a></h3>
+    <div class="form-group">
+        <label for="title">Название</label>
+        <textarea class="form-control" id="title" name="title"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="about">Характеристики</label>
+        <textarea class="form-control" id="about" name="about"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="about">Производитель</label>
+        <textarea class="form-control" id="manuf" name="manuf"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="classSelect">Тип</label>
+        <select class="form-control" id="classSelect" name="class">
+            <option>Процессор</option>
+            <option>Материнская плата</option>
+            <option>Видеокарта</option>
+            <option>Оперативная память</option>
+            <option>Блок питания</option>
+            <option>Корпус</option>
+            <option>Охлаждение</option>
+            <option>SSD</option>
+            <option>Жесткий диск</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary ">Создать</button>
+</form>
+
+{% endblock %}
